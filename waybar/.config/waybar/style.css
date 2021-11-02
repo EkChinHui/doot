@@ -1,0 +1,79 @@
+* {
+	min-height: 0;
+	font-family: "Iosevka Nerd Font Mono";
+	font-size: 12pt;
+	border: none;
+	border-radius: 0;
+	margin: 0;
+	padding: 0;
+}
+
+/* .horizontal { */
+/* 	padding: 2px 2px 0px 2px; */
+/* } */
+
+window#waybar {
+	color: #c0caf5;
+	/* background-color: transparent; */
+	/* border-bottom: none; */
+	background-color: #24283b;
+	border-bottom: 1px solid #414868;
+	transition-duration: 0.5s;
+	transition-property: background-color;
+}
+
+
+#workspaces button {
+	background: #24283b;
+	color: #c0caf5;
+    margin: 2px;
+	border-bottom: 1px solid #414868;
+}
+
+#workspaces button.focused {
+	/* color: #24283b;
+	 background: #c0caf5; */
+	color: #c0caf5;
+	background: #414868;
+}
+
+#workspaces button.urgent {
+	color: #f7768e;
+}
+
+#workspaces button.persistent {
+	color: #414868;
+}
+
+#workspaces button:hover {
+	color: #c0caf5;
+	background: #414868;
+	box-shadow: inherit;
+}
+
+#pulseaudio,
+#cpu,
+#memory,
+#language,
+#tray {
+    margin: 2px;
+    padding: 0.2rem 0.6rem;
+	border-radius: 0;
+	color: #c0caf5;
+	background: #24283b;
+	border-bottom: 1px solid #414868;
+}
+
+#custom-separator {
+	color: #414868;
+	background: #24283b;
+	border-bottom: 1px solid #414868;
+}
+
+#tray {
+    margin: 0px 10px 0px 0px;
+}
+
+#cal {
+    font-size: 30px;
+}
