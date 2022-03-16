@@ -52,7 +52,7 @@ for_window [class="Add"] floating enable
 
 ### Output configuration
 bindsym $mod+Shift+w exec ~/.config/scripts/wallpaper.sh
-output * bg ~/.config/wallpapers/storefront.jpg fill
+# output * bg ~/.config/wallpapers/storefront.jpg fill
 
 ### Volume
 
@@ -196,6 +196,11 @@ for_window [app_id="zoom" title="^zoom$"] border none, floating enable
 # For specific Zoom windows
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
 for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size
+
+# Enable tap to click for Laptops
+input type:touchpad {
+    tap enabled
+}
 
 
 include /etc/sway/config.d/*
