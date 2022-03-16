@@ -19,8 +19,11 @@
                 "pulseaudio", 
                 "custom/separator",
                 "cpu", 
-                "custom/separator",
                 "memory", 
+                "custom/separator",
+                "network", 
+                "custom/separator",
+                "battery",
                 "custom/separator",
                 "sway/language",  
                 "custom/separator",
@@ -56,11 +59,13 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "",
+        "format-alt": " {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format-alt": " {}%",
+        "format": "",
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -71,13 +76,13 @@
         "format-icons": ["", "", ""]
     },
     "custom/separator": {
-		"format": "|",
+		"format": " | ",
 		"interval": "once",
 		"tooltip": false
 	},
    "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{essid}  ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
@@ -112,6 +117,20 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "  {capacity}% {icon}  ",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
 }
 
