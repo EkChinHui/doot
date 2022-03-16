@@ -1286,10 +1286,7 @@ map kitty_mod+f6 debug_config
 
 #: }}}
 
-include ./theme.conf
-
-
 # BEGIN_KITTY_THEME
-# citylights
+# Gruvbox Material Light Soft
 include current-theme.conf
 # END_KITTY_THEME

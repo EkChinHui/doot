@@ -6,10 +6,10 @@ echo $1
 if [[ "$1" == "up" ]]
 then
     echo up
-    volume=$(pactl get-sink-volume 1 | awk '{print $5}' | sed 's/%//')
+    volume=$(pactl get-sink-volume 0 | awk '{print $5}' | sed 's/%//')
     dunstify Volume --hints=int:value:$volume -i $up_icon -r 1510
 else
     echo down
-    volume=$(pactl get-sink-volume 1 | awk '{print $5}' | sed 's/%//')
+    volume=$(pactl get-sink-volume 0 | awk '{print $5}' | sed 's/%//')
     dunstify Volume --hints=int:value:$volume -i $down_icon -r 1510
 fi

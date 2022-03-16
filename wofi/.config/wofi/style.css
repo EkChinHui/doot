@@ -1,0 +1,35 @@
+* {
+	font-family: "Iosevka Nerd Font Mono";
+	font-size: 12pt;
+}
+
+
+#outer-box {
+	background-color: #24283b;
+    border-radius: 10px;
+}
+
+#input-box {
+	background-color: #24283b;
+    border-radius: 10px;
+}
+
+#input {
+	background-color: #24283B;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+	color: #c0caf5;
+}
+
+#entry {
+    padding: 10px 20px 10px 30px;
+	color: #c0caf5;
+}
+
+#entry:selected {
+    background-color: #B1B186;
+    color:#262626;
+}
+
+/* potential rofi themes */
+/* https://www.reddit.com/r/unixporn/comments/qj1c24/oc_few_rofi_themes/ */

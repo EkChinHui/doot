@@ -29,3 +29,4 @@ keymap('n', '<leader>k', ':m .-2<CR>==', opts)
 keymap('n', ',p', '"0p', opts)
 keymap('n', ',P', '"0P', opts)
 
+keymap('n', '<leader>z', ':ZenMode<CR>', opts)

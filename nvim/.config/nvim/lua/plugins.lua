@@ -1,29 +1,60 @@
+local fn = vim.fn
+
+local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
+end
+
 require "paq" {
     "savq/paq-nvim";
     "tpope/vim-commentary";
     "lewis6991/gitsigns.nvim";
     "nvim-lua/plenary.nvim";
-    "hrsh7th/cmp-nvim-lsp";
-    "hrsh7th/cmp-buffer";
-    "hrsh7th/nvim-cmp";
+
     "neovim/nvim-lspconfig";
+
+    -- cmp
+    "hrsh7th/nvim-cmp";
+    "hrsh7th/cmp-cmdline";
+    "hrsh7th/cmp-buffer";
+    "hrsh7th/cmp-path";
+    "hrsh7th/cmp-nvim-lua";
+    "hrsh7th/cmp-nvim-lsp";
+    "hrsh7th/cmp-nvim-lsp-document-symbol";
+    "L3MON4D3/LuaSnip";
+    "saadparwaiz1/cmp_luasnip";
+    "tamago324/cmp-zsh";
+    "ray-x/lsp_signature.nvim";
+
+    -- latex
+    "lervag/vimtex";
+    -- "dense-analysis/ale"'
+
     "ellisonleao/glow.nvim";
     {"ms-jpq/chadtree", branch="chad"};
+
+
     "nvim-treesitter/nvim-treesitter";
+    "nvim-treesitter/playground";
+
     "nvim-telescope/telescope.nvim";
     "norcalli/nvim-colorizer.lua";
-    "sirver/ultisnips";
+    -- "sirver/ultisnips";
+    "tweekmonster/startuptime.vim";
+
 
     -- debuggers
     "mfussenegger/nvim-dap";
     "rcarriga/nvim-dap-ui";
 
     -- probation
-    "AckslD/nvim-neoclip.lua";
+    "AckslD/nvim-neoclip.lua"; -- figure out how to integrate this
     "mfussenegger/nvim-dap";
     "numtostr/FTerm.nvim";
 
 
+    "folke/twilight.nvim";
     "folke/zen-mode.nvim";
     "folke/which-key.nvim";
 
@@ -36,52 +67,22 @@ require "paq" {
     "glepnir/zephyr-nvim";
     "folke/tokyonight.nvim";
 
-
-    -- to test
-    -- "ray-x/lsp_signature.nvim";
 }
 
 -- Enable plugins
 require'colorizer'.setup()
 require'gitsigns'.setup()
 
-local dap = require'dap'
-dap.configurations.c = {
-  {
-    name = "Launch file",
-    type = "cppdbg",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = true,
-  },
-  {
-    name = 'Attach to gdbserver :1234',
-    type = 'cppdbg',
-    request = 'launch',
-    MIMode = 'gdb',
-    miDebuggerServerAddress = 'localhost:1234',
-    miDebuggerPath = '/usr/bin/gdb',
-    cwd = '${workspaceFolder}',
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-  },
-}
--- require'dapui'.setup()
-
 -- Treesitter
 require'nvim-treesitter.configs'.setup {
-  -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
-    enable = true,              -- false will disable the whole extension
+      enable = false,
+    -- enable = true,              -- false will disable the whole extension
    additional_vim_regex_highlighting = false,
   },
   incremental_selection = {
-    enable = true,
+      enable = false,
+    -- enable = true,
     keymaps = {
         init_selection = "gnn",
         node_incremental = "grn",
@@ -90,41 +91,11 @@ require'nvim-treesitter.configs'.setup {
     }
   },
   indent = {
-      enable = true
+      enable = true,
+      -- enable = false,
+      disable = {"python"}
   }
 }
-
--- Setup nvim-cmp.
-local cmp = require'cmp'
-
-cmp.setup({
-    snippet = {
-      expand = function(args)
-       -- For `ultisnips` user.
-        vim.fn["UltiSnips#Anon"](args.body)
-      end,
-    },
-    mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-      { name = 'nvim_lsp' },
-
-     -- For ultisnips user.
-      { name = 'ultisnips' },
-
-      { name = 'buffer' },
-    }
-})
-
--- Setup lspconfig.
--- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
---     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- }
 
 
 -- CHADtree
@@ -155,6 +126,59 @@ require'FTerm'.setup({
 
 -- Example keybindings
 local silent = { noremap = true, silent = true }
-
 keymap('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>', silent)
 keymap('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', silent)
+
+
+require("zen-mode").setup(
+{
+  window = {
+    backdrop = 0.90, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    -- height and width can be:
+    -- * an absolute number of cells when > 1
+    -- * a percentage of the width / height of the editor when <= 1
+    -- * a function that returns the width or the height
+    width = 120, -- width of the Zen window
+    height = 1, -- height of the Zen window
+    -- by default, no options are changed for the Zen window
+    -- uncomment any of the options below, or add other vim.wo options you want to apply
+    options = {
+      signcolumn = "no", -- disable signcolumn
+      number = false, -- disable number column
+      relativenumber = false, -- disable relative numbers
+      cursorline = false, -- disable cursorline
+      cursorcolumn = false, -- disable cursor column
+      foldcolumn = "0", -- disable fold column
+      list = false, -- disable whitespace characters
+    },
+  },
+  plugins = {
+    -- disable some global vim options (vim.o...)
+    -- comment the lines to not apply the options
+    options = {
+      enabled = true,
+      ruler = false, -- disables the ruler text in the cmd line area
+      showcmd = false, -- disables the command in the last line of the screen
+    },
+    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+    gitsigns = { enabled = false }, -- disables git signs
+    tmux = { enabled = false }, -- disables the tmux statusline
+    -- this will change the font size on kitty when in zen mode
+    -- to make this work, you need to set the following kitty options:
+    -- - allow_remote_control socket-only
+    -- - listen_on unix:/tmp/kitty
+    kitty = {
+      enabled = false,
+      font = "+4", -- font size increment
+    },
+  },
+  -- callback where you can add custom code when the Zen window opens
+  on_open = function(win)
+  end,
+  -- callback where you can add custom code when the Zen window closes
+  on_close = function()
+  end,
+})
+
+local wk = require("which-key")
+

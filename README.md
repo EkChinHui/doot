@@ -21,3 +21,8 @@ makepkg -si
 yay -S --needed - < pkglist.txt
 ```
 
+## TODO:
+[] Add optional install scripts for certain features
+    [] caps to control, esc
+    [] bluetooth
+    [] wifi

@@ -1,13 +1,34 @@
 # Startup
 exec --no-startup-id fcitx -d
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+
+# Added because GTK+ applications take long to load
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+         dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Status Bar:
+bar {
+   swaybar_command waybar 
+}
+
 # redshift
-exec --no-startup-id gammastep -l 1.352083:103.819839
+# exec --no-startup-id gammastep-indicator
 
 # style
-gaps outer 15
+gaps outer 10
 gaps inner 10
-default_border pixel 2
+default_border pixel 5
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #24283b #7B9E89 #FFFAFB #7B9E89   #7B9E89
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.background       #ffffff
 font pango: Iosevka
 ### Variables
 set $mod Mod1
@@ -25,8 +46,9 @@ bindsym $mod+c exec clipman pick -t wofi
 bindsym $mod+Shift+c exec clipman clear --all
 
 bindsym Mod4+Shift+s exec ~/.config/scripts/screenshot.sh
-bindsym $mod+Shift+t exec feh ~/Downloads/timetable
+bindsym $mod+Shift+t exec feh ~/studies/Y3S2timetable.jpg
 for_window [class="feh"] floating enable
+for_window [class="Add"] floating enable
 
 ### Output configuration
 bindsym $mod+Shift+w exec ~/.config/scripts/wallpaper.sh
@@ -64,7 +86,7 @@ exec swayidle -w \
 
 
 
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
     # Exit sway (logs you out of your Wayland session)
 
     # set {
@@ -169,14 +191,13 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Status Bar:
-bar {
-   swaybar_command waybar 
-}
 # For pop up notification windows that don't use notifications api
 for_window [app_id="zoom" title="^zoom$"] border none, floating enable
 # For specific Zoom windows
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
 for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size
 
+
 include /etc/sway/config.d/*
+
+
