@@ -52,7 +52,7 @@ for_window [class="Add"] floating enable
 
 ### Output configuration
 bindsym $mod+Shift+w exec ~/.config/scripts/wallpaper.sh
-# output * bg ~/.config/wallpapers/storefront.jpg fill
+output * bg ~/.config/wallpapers/storefront.jpg fill
 
 ### Volume
 

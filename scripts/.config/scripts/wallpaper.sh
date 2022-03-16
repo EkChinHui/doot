@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wallpapers=$(fd . ~/.config/wallpapers/)
+wallpapers=$(find ~/.config/wallpapers/)
 echo $wallpapers
 choice=$(echo "$wallpapers" | wofi --dmenu)
 
