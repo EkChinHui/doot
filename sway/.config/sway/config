@@ -9,6 +9,7 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
          dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
+exec kmonad ~/.config/kmonad.kbd
 # Status Bar:
 bar {
    swaybar_command waybar 
@@ -49,6 +50,9 @@ bindsym Mod4+Shift+s exec ~/.config/scripts/screenshot.sh
 bindsym $mod+Shift+t exec feh ~/studies/Y3S2timetable.jpg
 for_window [class="feh"] floating enable
 for_window [class="Add"] floating enable
+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 
 ### Output configuration
 bindsym $mod+Shift+w exec ~/.config/scripts/wallpaper.sh
