@@ -41,7 +41,7 @@ alias kssh="kitty +kitten ssh"
 
 alias v="nvim"
 alias p="sudo pacman"
-alias rgr="ranger"
+alias r="ranger"
 alias z="zathura --fork"
 alias zoom="QT_QPA_PLATFORM=xcb zoom &"
 alias kt="kitty +kitten themes"
