@@ -8,6 +8,7 @@ IFS=$'\n'
 ## ANSI color codes are supported.
 ## STDIN is disabled, so interactive scripts won't work properly
 
+
 ## This script is considered a configuration file and must be updated manually.
 ## It will be left untouched if you upgrade ranger.
 

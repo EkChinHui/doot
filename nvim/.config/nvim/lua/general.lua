@@ -28,7 +28,7 @@ set.tabstop=4
 set.softtabstop=4
 set.shiftwidth=4
 set.cmdheight = 2
-set.scrolloff=8
+set.scrolloff=10
 set.updatetime = 50
 vim.cmd("colorscheme gruvbox-material")
 set.clipboard="unnamedplus"
