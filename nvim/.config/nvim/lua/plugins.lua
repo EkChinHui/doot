@@ -180,5 +180,6 @@ require("zen-mode").setup(
   end,
 })
 
-local wk = require("which-key")
+-- what is this?
+-- local wk = require("which-key")
 
