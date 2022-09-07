@@ -1,6 +1,7 @@
 # Startup
 exec --no-startup-id fcitx -d
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id dunst
 
 
 # Added because GTK+ applications take long to load
@@ -47,7 +48,9 @@ bindsym $mod+c exec clipman pick -t wofi
 bindsym $mod+Shift+c exec clipman clear --all
 
 bindsym Mod4+Shift+s exec ~/.config/scripts/screenshot.sh
-bindsym $mod+Shift+t exec feh ~/studies/Y3S2timetable.jpg
+bindsym $mod+Shift+t exec feh ~/studies/Y4S1timetable.jpg
+bindsym $mod+Shift+d exec feh ~/studies/denise_timetable.jpg
+bindsym $mod+Shift+a exec bluetoothctl connect 74:65:0C:35:48:43
 for_window [class="feh"] floating enable
 for_window [class="Add"] floating enable
 
@@ -65,7 +68,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% && ex
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## scratch
-bindsym $mod+s exec ~/.config/sway/floating kitty -e nvim ~/studies/notes/scratch
+bindsym $mod+s exec ~/.config/sway/floating kitty -e nvim ~/studies/notes/scratch.md
 
 ## scripts
 bindsym $mod+Shift+s exec ~/.config/scripts/select_scripts.sh

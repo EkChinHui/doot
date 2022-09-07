@@ -9,6 +9,7 @@ fi
 
 # add to PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.gem/ruby/3.1.0/gems/solargraph-0.45.0/bin:$PATH"
 # export PATH="/opt/cuda/bin:$PATH"
 # export LD_LIBRARY_PATH=/usr/local/lib/
 export GTK_USE_PORTAL=0
@@ -31,9 +32,9 @@ alias sconf="nvim ~/.config/sway/config"
 alias vconf="nvim ~/.config/nvim/init.lua"
 alias vpconf="nvim ~/.config/nvim/lua/plugins.lua"
 alias kconf="nvim ~/.config/kitty/kitty.conf"
-alias stud="cd ~/studies/y3s2"
+alias stud="cd ~/studies/y4s1"
 alias todo="nvim ~/studies/notes/todo.md"
-alias s="nvim ~/studies/notes/scratch"
+alias s="nvim ~/studies/notes/scratch.md"
 alias bl="nvim ~/studies/notes/backlog.md"
 alias cat="bat --theme=Nord"
 alias ls="exa --icons --color=always --group-directories-first"
@@ -41,7 +42,7 @@ alias kssh="kitty +kitten ssh"
 
 alias v="nvim"
 alias p="sudo pacman"
-alias rgr="ranger"
+alias r="ranger"
 alias z="zathura --fork"
 alias zoom="QT_QPA_PLATFORM=xcb zoom &"
 alias kt="kitty +kitten themes"
@@ -84,3 +85,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+eval "$(rbenv init - zsh)"

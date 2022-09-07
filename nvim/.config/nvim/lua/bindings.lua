@@ -30,3 +30,4 @@ keymap('n', ',p', '"0p', opts)
 keymap('n', ',P', '"0P', opts)
 
 keymap('n', '<leader>z', ':ZenMode<CR>', opts)
+keymap('n', '<leader>c', ':TSContextToggle<CR>', opts)
