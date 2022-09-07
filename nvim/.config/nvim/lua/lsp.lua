@@ -18,7 +18,7 @@ cmp.setup({
       --       fallback()
       --     end,
       -- },
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['C-y'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
       { name = 'zsh'      },
