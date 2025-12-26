@@ -8,38 +8,39 @@ sbar.default({
     font = {
       family = settings.font,
       style = "Bold",
-      size = 14.0
+      size = 15.0
     },
-    color = colors.white,
-    padding_left = settings.paddings,
-    padding_right = settings.paddings,
+    color = colors.fg1,
+    padding_left = 6,
+    padding_right = 4,
   },
   label = {
     font = {
       family = settings.font,
-      style = "Semibold",
-      size = 13.0
+      style = "Medium",
+      size = 14.0
     },
-    color = colors.white,
-    padding_left = settings.paddings,
-    padding_right = settings.paddings,
+    color = colors.fg2,
+    padding_left = 4,
+    padding_right = 6,
   },
   background = {
     height = 26,
-    corner_radius = 9,
-    border_width = 2,
+    corner_radius = 8,
+    border_width = 0,
+    color = colors.bg1,
   },
   popup = {
     background = {
-      border_width = 2,
-      corner_radius = 9,
-      border_color = colors.popup.border,
-      color = colors.popup.bg,
+      border_width = 1,
+      corner_radius = 8,
+      border_color = colors.bg3,
+      color = colors.bg0,
       shadow = { drawing = true },
     },
-    blur_radius = 20,
+    blur_radius = 30,
   },
-  padding_left = 5,
-  padding_right = 5
+  padding_left = 2,
+  padding_right = 2,
 })
 

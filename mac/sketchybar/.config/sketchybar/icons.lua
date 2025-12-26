@@ -1,6 +1,6 @@
 return {
   loading = "􀖇",
-  apple = "􀣺",
+  apple = "􁗴",
   preferences = "􀺽",
 
   volume = {

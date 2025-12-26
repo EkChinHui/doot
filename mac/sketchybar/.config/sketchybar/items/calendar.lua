@@ -1,25 +1,45 @@
-local cal = sbar.add("item", {
+local colors = require("colors")
+local settings = require("settings")
+
+local cal = sbar.add("item", "calendar", {
   icon = {
-    padding_right = 0,
+    string = "󰃭",
     font = {
-      style = "Black",
-      size = 12.0,
+      family = settings.font,
+      size = 16.0,
     },
+    color = colors.aqua,
+    padding_left = 6,
+    padding_right = 4,
   },
   label = {
-    width = 45,
-    align = "right",
+    font = {
+      family = settings.font,
+      style = "Semibold",
+      size = 14.0,
+    },
+    color = colors.fg1,
+    padding_left = 0,
+    padding_right = 6,
+  },
+  background = {
+    color = colors.bg1,
+    corner_radius = 6,
+    height = 26,
   },
   position = "right",
-  update_freq = 15,
+  update_freq = 30,
+  padding_left = 2,
+  padding_right = 4,
 })
 
 local function update()
-  local date = os.date("%a. %d %b.")
-  local time = os.date("%H:%M")
-  cal:set({ icon = date, label = time })
+  local datetime = os.date("%a %d %b  %H:%M")
+  cal:set({ label = datetime })
 end
 
 cal:subscribe("routine", update)
 cal:subscribe("forced", update)
+
+update()
 

@@ -1,23 +1,47 @@
-return {
-  black = 0xff181926,
-  white = 0xffcad3f5,
-  red = 0xffed8796,
-  green = 0xffa6da95,
-  blue = 0xff8aadf4,
-  yellow = 0xffeed49f,
-  orange = 0xfff5a97f,
-  magenta = 0xffc6a0f6,
-  grey = 0xff939ab7,
-  transparent = 0x00000000,
+-- Gruvbox Dark colors
+local M = {}
 
-  bar = {
-    bg = 0xd01e1e2e,
-    border = 0xff494d64,
-  },
-  popup = {
-    bg = 0xff1e1e2e,
-    border = 0xffcad3f5
-  },
-  bg1 = 0x803c3e4f,
-  bg2 = 0xff494d64,
+-- Base colors
+M.black = 0xff282828
+M.white = 0xffebdbb2
+M.red = 0xfffb4934
+M.green = 0xffb8bb26
+M.blue = 0xff83a598
+M.yellow = 0xfffabd2f
+M.orange = 0xfffe8019
+M.magenta = 0xffd3869b
+M.aqua = 0xff8ec07c
+M.grey = 0xff928374
+M.transparent = 0x00000000
+
+-- Background shades
+M.bg0 = 0xff282828
+M.bg1 = 0xff3c3836
+M.bg2 = 0xff504945
+M.bg3 = 0xff665c54
+M.bg4 = 0xff7c6f64
+
+-- Foreground shades
+M.fg0 = 0xfffbf1c7
+M.fg1 = 0xffebdbb2
+M.fg2 = 0xffd5c4a1
+M.fg3 = 0xffbdae93
+M.fg4 = 0xffa89984
+
+-- Bar styling
+M.bar = {
+  bg = 0xf0282828,
+  border = 0xff3c3836,
 }
+M.popup = {
+  bg = 0xff282828,
+  border = 0xffebdbb2
+}
+
+-- Helper function for alpha blending
+M.with_alpha = function(color, alpha)
+  if alpha > 1.0 or alpha < 0.0 then return color end
+  return (color & 0x00ffffff) | (math.floor(alpha * 255.0) << 24)
+end
+
+return M
