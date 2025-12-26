@@ -104,17 +104,18 @@
 # Font configuration
 font:
   # Normal (roman) font face
-  normal:
+ normal:
     # Font family
     #
-    # Default:
-    #   - (macOS) Menlo
+   # Default:
+      # - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Fira code
-    # family: JetBrainsMono Nerd
+   family: FiraCode Nerd Font
+   # family: JetBrainsMono Nerd
     # The `style` can be specified to pick a specific face.
-    style: Regular
+   style: Regular
+ size: 15.0
 
   # Bold font face
   #bold:
@@ -150,7 +151,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  #size: 11.0
+# size: 80.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter

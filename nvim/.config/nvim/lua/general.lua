@@ -21,7 +21,7 @@ set.relativenumber = true
 set.errorbells = false
 set.hidden = true
 set.swapfile = false
-set.undodir="~/.config/undodir"
+set.undodir=vim.fn.expand('~/.config/undodir')
 set.completeopt = "menu,menuone,noselect"
 set.mouse = "a"
 set.tabstop=4
@@ -30,7 +30,6 @@ set.shiftwidth=4
 set.cmdheight = 2
 set.scrolloff=10
 set.updatetime = 50
-vim.cmd("colorscheme gruvbox-material")
 set.clipboard="unnamedplus"
 vim.g.loaded_matchparen = 1
 -- vim.g.clipboard = {

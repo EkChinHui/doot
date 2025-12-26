@@ -11,6 +11,9 @@ keymap('n', '<c-s>', ':update<CR>', {noremap=true, silent=true})
 keymap('v', '<c-s>', '<c-c>:update<CR>', {noremap=true, silent=true})
 keymap('i', '<c-s>', '<c-o>:update<CR>', {noremap=true, silent=true})
 
+keymap('n', '<c-d>', '<C-d>zz', opts)
+keymap('n', '<c-u>', '<C-u>zz', opts)
+
 keymap('n', 'Y', 'y$', opts)
 
 keymap('n', 'n', 'nzzzv', opts)
@@ -31,3 +34,5 @@ keymap('n', ',P', '"0P', opts)
 
 keymap('n', '<leader>z', ':ZenMode<CR>', opts)
 keymap('n', '<leader>c', ':TSContextToggle<CR>', opts)
+
+keymap('n', '<C-e>', ':Explore<CR>', opts)

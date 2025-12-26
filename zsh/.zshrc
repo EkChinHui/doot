@@ -3,24 +3,30 @@
 
 # Set env variables
 
-if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-  exec sway
-fi
-
 # add to PATH
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.gem/ruby/3.1.0/gems/solargraph-0.45.0/bin:$PATH"
+export PATH=$HOME/development/flutter/bin:$PATH
+export PATH=$HOME/.gem/bin:$PATH
+export LANG=en_US.UTF-8
+export M2_HOME="/Users/ecq964/Downloads/apache-maven-3.9.9"
+PATH="${M2_HOME}/bin:${PATH}"
+export PATH
+
 # export PATH="/opt/cuda/bin:$PATH"
 # export LD_LIBRARY_PATH=/usr/local/lib/
 export GTK_USE_PORTAL=0
-export ZSH="/home/ch/.config/.oh-my-zsh"
-
+# export ZSH="/home/ch/.config/.oh-my-zsh"
+export ANDROID_HOME=/Users/ecq964/Library/Android/sdk
 ZSH_THEME="hyperzsh"
 
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+# source /Users/ecq964/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+plugins=(git uv zsh-syntax-highlighting zsh-autosuggestions direnv)
+
+export ZSH=$HOME/.oh-my-zsh/
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=nvim
@@ -32,57 +38,85 @@ alias sconf="nvim ~/.config/sway/config"
 alias vconf="nvim ~/.config/nvim/init.lua"
 alias vpconf="nvim ~/.config/nvim/lua/plugins.lua"
 alias kconf="nvim ~/.config/kitty/kitty.conf"
-alias stud="cd ~/studies/y4s1"
-alias todo="nvim ~/studies/notes/todo.md"
-alias s="nvim ~/studies/notes/scratch.md"
-alias bl="nvim ~/studies/notes/backlog.md"
 alias cat="bat --theme=Nord"
-alias ls="exa --icons --color=always --group-directories-first"
-alias kssh="kitty +kitten ssh"
+alias ls="eza --icons --color=always --group-directories-first"
+alias tconf="nvim ~/.tmux.conf"
+alias sa="source .venv/bin/activate"
+# alias ts="tmux save-session -t work - > ~/work"
+# alias lt="tmux source-file ~/work"
 
+alias ca="conda activate"
 alias v="nvim"
 alias p="sudo pacman"
-alias r="ranger"
+alias inno="ssh innovation-machine@192.168.9.227"
+alias deploy="ssh deploy@192.168.9.227"
+alias cdv="ssh cdv@192.168.1.90"
+alias ch="ssh chinhui@192.168.9.227"
 alias z="zathura --fork"
-alias zoom="QT_QPA_PLATFORM=xcb zoom &"
-alias kt="kitty +kitten themes"
-
-
-function ranger {
-    local IFS=$'\t\n'
-    local tempfile="$(mktemp -t tmp.XXXXXX)"
-    local ranger_cmd=(
-        command
-        ranger
-        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
-  )
-  ${ranger_cmd[@]} "$@"
-  if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-    cd -- "$(cat "$tempfile")" || return
-  fi
-  command rm -f -- "$tempfile" 2>/dev/null
-  command clear
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 
 
-
-
-alias luamake=/home/ch/projects/lua-language-server/3rd/luamake/luamake
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/ecq964/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/ecq964/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ecq964/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/miniconda3/bin:$PATH"
+        export PATH="/Users/ecq964/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-eval "$(rbenv init - zsh)"
+
+# JINA_CLI_BEGIN
+
+## autocomplete
+if [[ ! -o interactive ]]; then
+    return
+fi
+
+compctl -K _jina jina
+
+_jina() {
+  local words completions
+  read -cA words
+
+  if [ "${#words}" -eq 2 ]; then
+    completions="$(jina commands)"
+  else
+    completions="$(jina completions ${words[2,-2]})"
+  fi
+
+  reply=(${(ps:
+:)completions})
+}
+
+# session-wise fix
+ulimit -n 4096
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# JINA_CLI_END
+
+
+
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export KMP_DUPLICATE_LIB_OK=TRUE
+
+# Added by Antigravity
+export PATH="/Users/ecq964/.antigravity/antigravity/bin:$PATH"
