@@ -1,0 +1,49 @@
+# Brewfile for macOS environment setup
+# Install: brew bundle --file=~/doot/mac/Brewfile
+
+# Taps
+tap "homebrew/cask-fonts"
+tap "nikitabobko/tap"        # aerospace
+tap "FelixKratz/formulae"    # borders, sketchybar
+
+# Terminal emulators
+cask "alacritty"
+cask "ghostty"
+
+# Window management
+cask "aerospace"             # tiling window manager
+cask "alt-tab"               # windows-style alt-tab
+
+# Menu bar
+brew "sketchybar"            # custom status bar
+cask "hiddenbar"             # hide menu bar icons
+cask "stats"                 # system monitor
+
+# Terminal tools
+brew "bat"                   # better cat
+brew "eza"                   # better ls
+brew "fd"                    # better find
+brew "fzf"                   # fuzzy finder
+brew "ripgrep"               # better grep
+brew "stow"                  # dotfiles manager
+brew "tmux"                  # terminal multiplexer
+brew "wget"                  # download files
+brew "direnv"                # directory environments
+
+# File manager
+brew "yazi"
+
+# Editor
+brew "neovim"
+
+# Keyboard
+brew "kanata"                # keyboard remapping
+
+# Media
+brew "yt-dlp"                # video downloader
+
+# Fun
+brew "cmatrix"
+
+# Fonts
+cask "font-hack-nerd-font"

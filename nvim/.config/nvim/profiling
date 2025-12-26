@@ -1,8 +1,0 @@
-prof start profile.log
-prof func *
-prof file *
-# perform slow actions
-prof exit
-
-prof pause
-noautocmd qall!

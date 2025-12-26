@@ -1,5 +1,0 @@
-require("config.lazy")
-require('general')
-require('plugins')
-require('bindings')
-require('lsp')
