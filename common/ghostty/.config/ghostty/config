@@ -1,0 +1,6 @@
+# Ghostty Configuration
+
+font-family = FiraCode Nerd Font
+font-size = 15
+
+theme = Gruvbox Material Dark
