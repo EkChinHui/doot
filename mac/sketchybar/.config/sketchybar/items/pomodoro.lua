@@ -22,6 +22,13 @@ local timer_interval = nil
 local is_expanded = false
 local popup_open = false
 
+-- Helper function (defined early so it's available everywhere)
+local function format_time(seconds)
+  local mins = math.floor(seconds / 60)
+  local secs = seconds % 60
+  return string.format("%02d:%02d", mins, secs)
+end
+
 -- Items to hide when expanded
 local RIGHT_SIDE_ITEMS = {
   "calendar",
@@ -35,10 +42,10 @@ local RIGHT_SIDE_ITEMS = {
 local pomodoro = sbar.add("item", "pomodoro", {
   position = "right",
   icon = {
-    string = "󰔛",
+    string = "⏱",
     font = {
       family = settings.font,
-      size = 16.0,
+      size = 14.0,
     },
     color = colors.red,
     padding_left = 6,
@@ -135,8 +142,12 @@ for _, mins in ipairs(WORK_PRESETS) do
     if not is_running and not is_break then
       time_remaining = config.work_time
     end
-    update_popup_selection()
-    update_display()
+    -- Close popup
+    pomodoro:set({ popup = { drawing = false } })
+    popup_open = false
+    -- Update display directly via CLI for reliability
+    local time_str = format_time(time_remaining)
+    sbar.exec("sketchybar --set pomodoro label='" .. time_str .. "'")
   end)
 
   item:subscribe("mouse.entered", function()
@@ -159,7 +170,9 @@ for _, mins in ipairs(BREAK_PRESETS) do
 
   item:subscribe("mouse.clicked", function()
     config.short_break = mins * 60
-    update_popup_selection()
+    -- Close popup after selection
+    pomodoro:set({ popup = { drawing = false } })
+    popup_open = false
   end)
 
   item:subscribe("mouse.entered", function()
@@ -181,14 +194,22 @@ reset_item:set({ label = { color = colors.red } })
 reset_item:subscribe("mouse.clicked", function()
   pomodoro:set({ popup = { drawing = false } })
   popup_open = false
-  -- Call reset after closing popup
+  -- Reset state
   is_running = false
   is_break = false
   time_remaining = config.work_time
   pomodoro_count = 0
   pomodoro:set({ update_freq = 0 })
-  set_expanded(false)
-  update_display()
+
+  local time_str = format_time(time_remaining)
+  -- Update label directly via CLI for reliability
+  sbar.exec("sketchybar --set pomodoro label='" .. time_str .. "'")
+
+  -- Also collapse
+  is_expanded = true
+  set_expanded(false, function()
+    update_display()
+  end)
 end)
 
 reset_item:subscribe("mouse.entered", function()
@@ -218,12 +239,6 @@ update_popup_selection = function()
   end
 end
 
-local function format_time(seconds)
-  local mins = math.floor(seconds / 60)
-  local secs = seconds % 60
-  return string.format("%02d:%02d", mins, secs)
-end
-
 local function get_dots_string()
   local dots = ""
   for i = 1, config.pomodoros_until_long_break do
@@ -236,84 +251,107 @@ local function get_dots_string()
   return dots
 end
 
-local function set_expanded(expanded)
-  if is_expanded == expanded then return end
+local function set_expanded(expanded, callback)
+  if is_expanded == expanded then
+    if callback then callback() end
+    return
+  end
   is_expanded = expanded
 
-  sbar.animate("quadratic", 15, function()
-    -- Hide/show other right-side items
-    for _, item_name in ipairs(RIGHT_SIDE_ITEMS) do
-      sbar.set(item_name, { drawing = not expanded })
-    end
+  -- Determine icon based on state (using emojis)
+  local icon, icon_color
+  if is_break then
+    icon = "☕"
+    icon_color = colors.green
+  elseif is_running then
+    icon = "⏱"
+    icon_color = colors.red
+  else
+    icon = "⏸"
+    icon_color = colors.fg4
+  end
+  local time_str = format_time(time_remaining)
 
-    -- Update pomodoro styling based on expanded state
-    if expanded then
-      pomodoro:set({
-        icon = {
-          font = { size = 24.0 },
-          padding_left = 12,
-          padding_right = 8,
-        },
-        label = {
-          font = { size = 22.0, style = "Semibold" },
-          padding_right = 12,
-        },
-        background = {
-          height = 32,
-          corner_radius = 8,
-        },
+  -- Hide/show other right-side items (no animation)
+  for _, item_name in ipairs(RIGHT_SIDE_ITEMS) do
+    sbar.set(item_name, { drawing = not expanded })
+  end
+
+  -- Update pomodoro styling based on expanded state
+  if expanded then
+    pomodoro:set({
+      icon = {
+        string = icon,
+        color = icon_color,
+        font = { family = settings.font, size = 20.0 },
+        padding_left = 12,
+        padding_right = 8,
+      },
+      label = {
+        string = time_str,
+        font = { size = 22.0, style = "Semibold" },
+        padding_right = 12,
+      },
+      background = {
+        height = 32,
+        corner_radius = 8,
+      },
+      padding_right = 6,
+    })
+    pomodoro_dots:set({
+      drawing = true,
+      label = { string = get_dots_string() },
+    })
+  else
+    pomodoro:set({
+      icon = {
+        string = icon,
+        color = icon_color,
+        font = { family = settings.font, size = 14.0 },
+        padding_left = 6,
+        padding_right = 4,
+      },
+      label = {
+        string = time_str,
+        font = { size = 13.0, style = "Medium" },
         padding_right = 6,
-      })
-      pomodoro_dots:set({
-        drawing = true,
-        label = { string = get_dots_string() },
-      })
-    else
-      pomodoro:set({
-        icon = {
-          font = { size = 16.0 },
-          padding_left = 6,
-          padding_right = 4,
-        },
-        label = {
-          font = { size = 13.0, style = "Medium" },
-          padding_right = 6,
-        },
-        background = {
-          height = 26,
-          corner_radius = 6,
-        },
-        padding_right = 2,
-      })
-      pomodoro_dots:set({ drawing = false })
-    end
-  end)
+      },
+      background = {
+        height = 26,
+        corner_radius = 6,
+      },
+      padding_right = 2,
+    })
+    pomodoro_dots:set({ drawing = false })
+  end
+
+  if callback then callback() end
 end
 
 local function update_display()
   local icon, icon_color
 
   if is_break then
-    icon = "󰒲"  -- break/coffee icon
+    icon = "☕"  -- break/coffee icon
     icon_color = colors.green
   elseif is_running then
-    icon = "󰔛"  -- timer running
+    icon = "⏱"  -- timer running
     icon_color = colors.red
   else
-    icon = "󰔜"  -- timer paused
+    icon = "⏸"  -- timer paused
     icon_color = colors.fg4
   end
 
-  sbar.animate("quadratic", 10, function()
-    pomodoro:set({
-      icon = { string = icon, color = icon_color },
-      label = { string = format_time(time_remaining) },
-    })
-    -- Update dots when expanded
-    if is_expanded then
-      pomodoro_dots:set({ label = { string = get_dots_string() } })
-    end
-  end)
+  local time_str = format_time(time_remaining)
+  -- Update everything in one call
+  pomodoro:set({
+    icon = { string = icon, color = icon_color },
+    label = { string = time_str },
+  })
+  -- Update dots when expanded
+  if is_expanded then
+    pomodoro_dots:set({ label = { string = get_dots_string() } })
+  end
 end
 
 local function notify(title, message)
@@ -365,13 +403,15 @@ local function toggle_timer()
 
   if is_running then
     pomodoro:set({ update_freq = 1 })
-    set_expanded(true)
+    set_expanded(true, function()
+      update_display()
+    end)
   else
     pomodoro:set({ update_freq = 0 })
-    set_expanded(false)
+    set_expanded(false, function()
+      update_display()
+    end)
   end
-
-  update_display()
 end
 
 local function reset_timer()
@@ -380,9 +420,10 @@ local function reset_timer()
   time_remaining = config.work_time
   pomodoro_count = 0
   pomodoro:set({ update_freq = 0 })
-  set_expanded(false)
-  update_display()
-  notify("Pomodoro", "Timer reset")
+  set_expanded(false, function()
+    update_display()
+    notify("Pomodoro", "Timer reset")
+  end)
 end
 
 local function skip_phase()
@@ -405,6 +446,10 @@ end
 
 -- Left click: start/pause, Right click: open config menu
 pomodoro:subscribe("mouse.clicked", function(env)
+  -- Ignore left clicks when popup is open (prevents accidental toggle)
+  if popup_open and env.BUTTON == "left" then
+    return
+  end
   if env.BUTTON == "left" then
     toggle_timer()
   elseif env.BUTTON == "right" then
