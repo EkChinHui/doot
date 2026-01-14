@@ -73,12 +73,13 @@ automatically-unhide-macos-hidden-apps = false
     outer.right =      20
 
 [workspace-to-monitor-force-assignment]
-    1 = 'main'                       # Main monitor
-    2 = ['secondary', 'main']
-    3 = 'main'                       # Main monitor
-    4 = ['secondary', 'main']
-    5 = 'main'                       # Main monitor
-    6 = ['secondary', 'main']
+    1 = 'Built-in*'
+    2 = 'DELL*'
+    3 = 'Built-in*'
+    4 = 'DELL*'
+    5 = 'Built-in*'
+    6 = 'DELL*'
+    c = ['Sidecar*', 'Built-in*']
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

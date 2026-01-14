@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/ecq964/.oh-my-zsh/custom/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # macOS .zshrc
 
 # PATH
@@ -36,6 +43,7 @@ alias conf="cd ~/.config"
 alias vconf="nvim ~/.config/nvim/init.lua"
 alias vpconf="nvim ~/.config/nvim/lua/plugins.lua"
 alias tconf="nvim ~/.tmux.conf"
+alias ccob="cd ~/projects/obsidian && claude"
 
 # Aliases - Tools
 alias cat="bat --theme=Nord"

@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+  read -p "App name [myapp]: " APP_NAME
+  APP_NAME=${APP_NAME:-myapp}
+else
+  APP_NAME=$1
+fi
+
+# Create parent directory
+mkdir -p "$APP_NAME"
+
+# Create frontend (Next.js + TypeScript)
+(cd "$APP_NAME" && npx create-next-app@latest frontend --typescript --eslint --app)
+
+# Create backend (FastAPI + uv)
+uv init --bare "$APP_NAME/backend"
+(cd "$APP_NAME/backend" && uv add fastapi uvicorn)
+
+echo "Created fullstack app at $APP_NAME/"
