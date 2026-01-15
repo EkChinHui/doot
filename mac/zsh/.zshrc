@@ -84,3 +84,6 @@ export NVM_DIR="$HOME/.nvm"
 # Misc
 export KMP_DUPLICATE_LIB_OK=TRUE
 ulimit -n 4096
+
+# Ollama CORS for browser extensions
+export OLLAMA_ORIGINS="*"

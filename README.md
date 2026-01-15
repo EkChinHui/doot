@@ -21,6 +21,10 @@ makepkg -si
 yay -S --needed - < pkglist.txt
 ```
 
+## Other Files
+
+- `obsidian-web-clipper-settings.json` - Obsidian Web Clipper templates for clipping articles, arXiv papers, YouTube videos, Wikipedia, Google Maps, and more.
+
 ## TODO:
 [] Add optional install scripts for certain features
     [] caps to control, esc

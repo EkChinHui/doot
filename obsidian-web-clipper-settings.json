@@ -1,0 +1,588 @@
+{
+  "migrationVersion": 1,
+  "highlighter_settings": {
+    "highlighterEnabled": true,
+    "alwaysShowHighlights": true,
+    "highlightBehavior": "highlight-inline"
+  },
+  "template_17677729347835httlyp": {
+    "schemaVersion": "0.1.0",
+    "name": "arXiv",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "3 Resources/Papers",
+    "noteContentFormat": "{{content}}",
+    "properties": [
+      {
+        "id": "1767772934795qji2f7w",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772934795ajxdadn",
+        "name": "author",
+        "value": "{{selector:.ltx_authors .ltx_personname|wikilink|join}}",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772934795f12na45",
+        "name": "url",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772934795ht3zb6n",
+        "name": "published",
+        "value": "{{selector:.ltx_dates|replace:\\\"(\\\",\\\"\\\"|replace:\\\")\\\",\\\"\\\"|date:\\\"YYYY-MM-DD\\\"}}",
+        "type": "date"
+      },
+      {
+        "id": "1767772934795yvujuyi",
+        "name": "year",
+        "value": "{{selector:.ltx_dates|replace:\\\"(\\\",\\\"\\\"|replace:\\\")\\\",\\\"\\\"|date:\\\"YYYY\\\"}}",
+        "type": "number"
+      },
+      {
+        "id": "1767772934795e1nz5gu",
+        "name": "arxiv",
+        "value": "{{url|split:\\\"/\\\"|slice:4|split:\\\"#\\\"|slice:0,1}}",
+        "type": "text"
+      }
+    ],
+    "triggers": [
+      "https://arxiv.org/html/"
+    ],
+    "id": "17677729347835httlyp",
+    "context": ""
+  },
+  "template_17677729527647le2fiu": {
+    "schemaVersion": "0.1.0",
+    "name": "Google Maps",
+    "behavior": "create",
+    "noteNameFormat": "{{selector:div[role=\"main\"]:aria-label}}",
+    "path": "3 Resources/Places",
+    "noteContentFormat": "",
+    "properties": [
+      {
+        "id": "17677729527880ommts0",
+        "name": "categories",
+        "value": "[[Places]]",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772952788scuci65",
+        "name": "type",
+        "value": "",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772952788nw62q3u",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772952789f29ikne",
+        "name": "loc",
+        "value": "",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772952789p6asx9y",
+        "name": "coordinates",
+        "value": "{{url|split:\\\"/@\\\"|slice:1|split:\\\",\\\"|slice:0,2}}",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772952789v714rxj",
+        "name": "address",
+        "value": "{{selector:button[aria-label^=\\\"Address:\\\"]:aria-label|split:\\\"Address: \\\"|slice:1}}",
+        "type": "text"
+      },
+      {
+        "id": "17677729527893iu5aar",
+        "name": "url",
+        "value": "{{selector:div[aria-label^=\\\"Information for\\\"] a[href*=\\\"http\\\"]:href|slice:0,1}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772952789gfa0y8r",
+        "name": "rating",
+        "value": "",
+        "type": "number"
+      },
+      {
+        "id": "1767772952789qm8fsqz",
+        "name": "scoreGoogle",
+        "value": "{{selector:div[jsaction*=\\\"moreReviews\\\"] .fontDisplayLarge}}",
+        "type": "number"
+      },
+      {
+        "id": "1767772952789guqilbe",
+        "name": "description",
+        "value": "{{selector:div[aria-label^=\\\"About \\\"] button .PYvSYb[jslog]}}",
+        "type": "text"
+      },
+      {
+        "id": "17677729527896qd35xn",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "176777295278967gvs0s",
+        "name": "last",
+        "value": "",
+        "type": "date"
+      },
+      {
+        "id": "1767772952789ej416ed",
+        "name": "tags",
+        "value": "places, to-visit",
+        "type": "multitext"
+      }
+    ],
+    "triggers": [
+      "https://www.google.com/maps/place/"
+    ],
+    "id": "17677729527647le2fiu",
+    "context": ""
+  },
+  "template_1768445287606zyhwgop": {
+    "schemaVersion": "0.1.0",
+    "name": "Article → PARA",
+    "behavior": "create",
+    "noteContentFormat": "## Summary\n\n{{\"Summarize this article in 3-5 bullet points. Be concise.\"}}\n\n## Highlights\n\n{{highlights}}\n\n## Notes\n\n",
+    "properties": [
+      {
+        "id": "1768445287606gadz0re",
+        "name": "type",
+        "value": "resource",
+        "type": "multitext"
+      },
+      {
+        "id": "17684452876068w49ms6",
+        "name": "source",
+        "value": "article",
+        "type": "text"
+      },
+      {
+        "id": "1768445287606vvl1s6u",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "176844528760660mjvdq",
+        "name": "author",
+        "value": "{{author}}",
+        "type": "multitext"
+      },
+      {
+        "id": "1768445287606576lxh6",
+        "name": "url",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1768445287606jxyywb2",
+        "name": "clipped",
+        "value": "{{date}}",
+        "type": "text"
+      }
+    ],
+    "path": "3 Resources/Articles",
+    "noteNameFormat": "{{title}}",
+    "id": "1768445287606zyhwgop",
+    "context": "",
+    "triggers": []
+  },
+  "template_1767772972720vf3q2mb": {
+    "schemaVersion": "0.1.0",
+    "name": "YouTube",
+    "behavior": "create",
+    "noteNameFormat": "{{schema:author}} – {{schema:name}}",
+    "path": "3 Resources/Videos",
+    "noteContentFormat": "![{{schema:name}}]({{url}})",
+    "properties": [
+      {
+        "id": "1767772972748dclw6ue",
+        "name": "title",
+        "value": "{{schema:name}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772972748yu9rtbp",
+        "name": "author",
+        "value": "{{schema:author|wikilink}}",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772972748as0d8z4",
+        "name": "published",
+        "value": "{{schema:uploadDate|date:YYYY-MM-DD}}",
+        "type": "date"
+      },
+      {
+        "id": "1767772972748dxivzoa",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772972748e6h5871",
+        "name": "image",
+        "value": "{{schema:thumbnailUrl|slice:0}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772972748hez67m6",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "1767772972748u1fl55k",
+        "name": "tags",
+        "value": "videos",
+        "type": "multitext"
+      }
+    ],
+    "triggers": [
+      "https://www.youtube.com/watch?v="
+    ],
+    "id": "1767772972720vf3q2mb",
+    "context": ""
+  },
+  "template_1767772964468c4a2nze": {
+    "schemaVersion": "0.1.0",
+    "name": "Wikipedia",
+    "behavior": "create",
+    "noteContentFormat": "{{selectorHtml:#mw-content-text|remove_html:(\".navbox,.printfooter,.side-box\")|markdown}}",
+    "properties": [
+      {
+        "id": "17677729644687mpkrp5",
+        "name": "categories",
+        "value": "[[Clippings]]",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772964468l7wujxx",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772964468ajk9ran",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "176777296446880m7x7q",
+        "name": "author",
+        "value": "[[Wikipedia]]",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772964468r0qx1db",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "1767772964468tnqp61d",
+        "name": "description",
+        "value": "{{description}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772964468pvbqi30",
+        "name": "tags",
+        "value": "clippings, wikipedia",
+        "type": "multitext"
+      }
+    ],
+    "triggers": [
+      "/^https:\\/\\/[a-z-.]+\\.wikipedia\\.org\\/wiki\\/.*$/"
+    ],
+    "noteNameFormat": "{{title}}",
+    "path": "3 Resources/Wiki",
+    "id": "1767772964468c4a2nze",
+    "context": ""
+  },
+  "property_types": [
+    {
+      "name": "title",
+      "type": "text",
+      "defaultValue": "{{title}}"
+    },
+    {
+      "name": "source",
+      "type": "text",
+      "defaultValue": "{{url}}"
+    },
+    {
+      "name": "author",
+      "type": "multitext",
+      "defaultValue": "{{author|split:\", \"|wikilink|join}}"
+    },
+    {
+      "name": "published",
+      "type": "date",
+      "defaultValue": "{{published}}"
+    },
+    {
+      "name": "created",
+      "type": "date",
+      "defaultValue": "{{date}}"
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "defaultValue": "{{description}}"
+    },
+    {
+      "name": "tags",
+      "type": "multitext",
+      "defaultValue": "clippings"
+    },
+    {
+      "name": "url",
+      "type": "text",
+      "defaultValue": "{{url}}"
+    },
+    {
+      "name": "year",
+      "type": "number",
+      "defaultValue": "{{selector:.ltx_dates|replace:\\\"(\\\",\\\"\\\"|replace:\\\")\\\",\\\"\\\"|date:\\\"YYYY\\\"}}"
+    },
+    {
+      "name": "arxiv",
+      "type": "text",
+      "defaultValue": "{{url|split:\\\"/\\\"|slice:4|split:\\\"#\\\"|slice:0,1}}"
+    },
+    {
+      "name": "categories",
+      "type": "multitext",
+      "defaultValue": "[[Places]]"
+    },
+    {
+      "name": "type",
+      "type": "multitext"
+    },
+    {
+      "name": "loc",
+      "type": "multitext"
+    },
+    {
+      "name": "coordinates",
+      "type": "multitext",
+      "defaultValue": "{{url|split:\\\"/@\\\"|slice:1|split:\\\",\\\"|slice:0,2}}"
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "defaultValue": "{{selector:button[aria-label^=\\\"Address:\\\"]:aria-label|split:\\\"Address: \\\"|slice:1}}"
+    },
+    {
+      "name": "rating",
+      "type": "number"
+    },
+    {
+      "name": "scoreGoogle",
+      "type": "number",
+      "defaultValue": "{{selector:div[jsaction*=\\\"moreReviews\\\"] .fontDisplayLarge}}"
+    },
+    {
+      "name": "last",
+      "type": "date"
+    },
+    {
+      "name": "image",
+      "type": "text",
+      "defaultValue": "{{schema:thumbnailUrl|slice:0}}"
+    },
+    {
+      "name": "price",
+      "type": "number",
+      "defaultValue": "{{meta:property:product:price:amount}}"
+    },
+    {
+      "name": "clipped",
+      "type": "text",
+      "defaultValue": "{{date}}"
+    }
+  ],
+  "template_1767772983546wbhop8h": {
+    "schemaVersion": "0.1.0",
+    "name": "Product",
+    "behavior": "create",
+    "noteNameFormat": "{{title}}",
+    "path": "3 Resources/Product",
+    "noteContentFormat": "{{description}}",
+    "properties": [
+      {
+        "id": "17677729835727whv932",
+        "name": "categories",
+        "value": "[[Products]]",
+        "type": "multitext"
+      },
+      {
+        "id": "1767772983572a8myoiv",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "17677729835720ce636a",
+        "name": "description",
+        "value": "{{description}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772983572nku6b23",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772983572h2jp5cr",
+        "name": "title",
+        "value": "{{schema:@Product:name}}",
+        "type": "text"
+      },
+      {
+        "id": "176777298357233ia5v9",
+        "name": "price",
+        "value": "{{meta:property:product:price:amount}}",
+        "type": "number"
+      },
+      {
+        "id": "1767772983572crk1ozb",
+        "name": "image",
+        "value": "{{image}}",
+        "type": "text"
+      }
+    ],
+    "triggers": [
+      "schema:@Product"
+    ],
+    "id": "1767772983546wbhop8h",
+    "context": ""
+  },
+  "general_settings": {
+    "showMoreActionsButton": false,
+    "betaFeatures": false,
+    "legacyMode": false,
+    "silentOpen": false,
+    "openBehavior": "embedded",
+    "saveBehavior": "addToObsidian"
+  },
+  "interpreter_settings": {
+    "interpreterModel": "1768445216390",
+    "models": [
+      {
+        "id": "1768445216390",
+        "providerId": "1768442687565",
+        "providerModelId": "qwen3:4b-32k",
+        "name": "qwen3:4b-32k",
+        "enabled": true
+      }
+    ],
+    "providers": [
+      {
+        "id": "1768442687565",
+        "name": "Ollama",
+        "baseUrl": "http://127.0.0.1:11434/api/chat",
+        "apiKey": "",
+        "apiKeyRequired": false
+      }
+    ],
+    "interpreterEnabled": true,
+    "interpreterAutoRun": true,
+    "defaultPromptContext": ""
+  },
+  "stats": {
+    "addToObsidian": 1,
+    "saveFile": 0,
+    "copyToClipboard": 0,
+    "share": 0
+  },
+  "reader_settings": {
+    "fontSize": 1.5,
+    "lineHeight": 1.6,
+    "maxWidth": 38,
+    "theme": "default",
+    "themeMode": "auto"
+  },
+  "template_1767772945300cxd489e": {
+    "schemaVersion": "0.1.0",
+    "name": "ChatGPT",
+    "behavior": "create",
+    "noteContentFormat": "{{selectorHtml:article[data-testid*=\"conversation-turn\"]|replace:\"/<svg.*?svg>/g\":\"### ChatGPT\\:\"|join:\"\\n\\n\"|markdown|replace:(\"\\\\###\":\"###\", \"##### You said\": \"### You:\")}}\n",
+    "properties": [
+      {
+        "id": "1767772945300vtw1491",
+        "name": "title",
+        "value": "{{title}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772945300hpm6gmy",
+        "name": "source",
+        "value": "{{url}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772945300wqtaxvk",
+        "name": "author",
+        "value": "{{author|split:\\\", \\\"|wikilink|join}}",
+        "type": "multitext"
+      },
+      {
+        "id": "17677729453004b5em07",
+        "name": "published",
+        "value": "{{published}}",
+        "type": "date"
+      },
+      {
+        "id": "1767772945300ig2jax0",
+        "name": "created",
+        "value": "{{date}}",
+        "type": "date"
+      },
+      {
+        "id": "176777294530099cb752",
+        "name": "description",
+        "value": "{{description}}",
+        "type": "text"
+      },
+      {
+        "id": "1767772945300on6dido",
+        "name": "tags",
+        "value": "chatgpt/conversation",
+        "type": "multitext"
+      }
+    ],
+    "triggers": [
+      "https://chatgpt.com/share",
+      "https://chatgpt.com/c"
+    ],
+    "noteNameFormat": "{{title}}",
+    "path": "3 Resources/GPT",
+    "id": "1767772945300cxd489e",
+    "context": ""
+  },
+  "vaults": [],
+  "template_list": [
+    "1768445287606zyhwgop",
+    "1767772983546wbhop8h",
+    "1767772972720vf3q2mb",
+    "1767772964468c4a2nze",
+    "17677729527647le2fiu",
+    "1767772945300cxd489e",
+    "17677729347835httlyp"
+  ]
+}
