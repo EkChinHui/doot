@@ -63,3 +63,13 @@ sudo tail -f /Library/Logs/Kanata/kanata.err.log
 ```
 
 If you use multiple keyboards, you may want to limit this to only showing up on your MacBooks internal keyboard.
+
+## Layers
+
+### Base
+- **Home row mods (GACS):** `a`=Ctrl, `s`=Alt, `d`=Meta, `f`=Shift / `j`=Shift, `k`=Meta, `l`=Alt, `;`=Ctrl
+- **Caps Lock:** Escape on tap, Ctrl on hold
+- **Space:** Space on tap, arrow layer on hold (h/j/k/l → left/down/up/right)
+
+### Gaming
+Disables all home row mods and tap-hold behavior for normal key input. Press **F3** to toggle between base and gaming layers.
