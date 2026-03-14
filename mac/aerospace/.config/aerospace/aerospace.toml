@@ -155,6 +155,9 @@ automatically-unhide-macos-hidden-apps = false
     
     ctrl-f = 'fullscreen'
 
+    # Toggle sketchybar
+    ctrl-shift-g = 'exec-and-forget if pgrep -x sketchybar >/dev/null; then brew services stop sketchybar; else brew services start sketchybar; fi'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
